@@ -36,7 +36,7 @@ export default function App() {
         options={{
           tabBarIcon: ({ focused }) => (
             <Fontisto name="clock" size={20} color={focused ? 'black' : 'white'} />
-          )
+          ),
         }}>
 
         </Tab.Screen>
@@ -45,7 +45,6 @@ export default function App() {
           tabBarIcon: ({ focused }) => (
             <Fontisto name="checkbox-active" size={20} color={focused ? 'black' : 'white'} />
           ),
-
         }} />
       </Tab.Navigator>
     </NavigationContainer>

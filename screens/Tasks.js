@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 export default function Tasks() {
     return (
       <View style={styles.container}>
-        <Text style={styles.entry}>NOW YOU SEE THE TASKS</Text>
+        <Text style={styles.entry}>Now you see completed</Text>
         <StatusBar style="auto" /> 
       </View>
     );

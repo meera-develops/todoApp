@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 export default function Upcoming() {
     return (
       <View style={styles.container}>
-        <Text style={styles.entry}>This shows Completed!</Text>
+        <Text style={styles.entry}>NOW YOU SEE THE TASKS</Text>
         <StatusBar style="auto" /> 
       </View>
     );
