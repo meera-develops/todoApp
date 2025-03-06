@@ -1,4 +1,5 @@
-import { StyleSheet, Text, SafeAreaView, FlatList } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { CheckBox } from '@rneui/themed';
 import Fontisto from '@expo/vector-icons/Fontisto';
@@ -8,6 +9,11 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 
 
 export default function Upcoming() {
+
+    let navigation = useNavigation();
+    let addTask = () => {
+      navigation.navigate('Add Tasks');
+    }
 
     let data = [
       {
@@ -64,7 +70,7 @@ export default function Upcoming() {
 
           <SafeAreaView style={styles.entryContainer}>
             <Text style={styles.entry}>Daily Tasks</Text>
-            <Fontisto name='plus-a' size={30} color="black" style={styles.plusSign}/>
+            <Fontisto name='plus-a' size={30} color="black" style={styles.plusSign} onPress={addTask}/>
           </SafeAreaView>
 
           <FlatList data={tasks} renderItem={renderItem} keyExtractor={(item) => item.key}></FlatList>
