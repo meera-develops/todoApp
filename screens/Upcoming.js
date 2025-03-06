@@ -4,15 +4,12 @@ import React, { useState } from 'react';
 import { CheckBox } from '@rneui/themed';
 import Fontisto from '@expo/vector-icons/Fontisto';
 
-//organize tasks to move to the bottom once completed
-//feature option to add tasks
-
 
 export default function Upcoming() {
 
     let navigation = useNavigation();
     let addTask = () => {
-      navigation.navigate('Add Tasks');
+      navigation.navigate('Add Tasks', {setTasks});
     }
 
     let data = [
@@ -44,7 +41,7 @@ export default function Upcoming() {
       const updatedTasks = tasks.map(task => 
         task.key === key ? { ...task, completed: !task.completed } : task
       );
-      setTasks(updatedTasks);  // Update the state with the new tasks array
+      setTasks(updatedTasks);
     };
 
     let renderItem = ({item}) => {

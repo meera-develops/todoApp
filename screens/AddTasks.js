@@ -1,14 +1,33 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, TextInput, Button, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+// import { useNavigation } from '@react-navigation/native';
 
+export default function AddTasks({ navigation, route }) {
 
+    const { setTasks } = route.params;
 
-export default function AddTasks() {
+    let [todo, setTodo] = useState('');
+
+    let addTodo = () => {
+      if (todo.trim()) {
+      setTasks((prevTasks) => [
+        ...prevTasks,
+        { key: (prevTasks.length + 1).toString(), description: todo, completed: false },
+      ]);
+      navigation.navigate('Upcoming Tasks'); // Navigate back to the previous screen after adding
+    }
+    };
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.entry}>WELCOME BACK!</Text>
-        <StatusBar style="auto" /> 
-      </View>
+      <SafeAreaView style={styles.container}>
+        <TextInput 
+          style={styles.input}
+          placeholder="Create Task"
+          value={todo}
+          onChangeText={setTodo}
+        /> 
+        <Button title="Add Task" onPress={addTodo} />
+      </SafeAreaView>
     );
   }
   
@@ -19,9 +38,11 @@ export default function AddTasks() {
       alignItems: 'center',
       justifyContent: 'center',
     },
-    entry : {
-      color: 'red', 
-      fontWeight: 'bold',
-      fontSize: 20
+    input : {
+      height: 40,
+      borderColor: 'gray',
+      borderWidth: 1,
+      marginBottom: 20,
+      paddingHorizontal: 10,
     },
   });
