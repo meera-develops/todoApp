@@ -1,6 +1,7 @@
 import { StyleSheet, Text, SafeAreaView, FlatList } from 'react-native';
 import React, { useState } from 'react';
 import { CheckBox } from '@rneui/themed';
+import Fontisto from '@expo/vector-icons/Fontisto';
 
 //organize tasks to move to the bottom once completed
 //feature option to add tasks
@@ -60,7 +61,12 @@ export default function Upcoming() {
     return (
       <SafeAreaView style={styles.container}>
         <SafeAreaView style={styles.tasksContainer}>
-          <Text style={styles.entry}>Daily Tasks</Text>
+
+          <SafeAreaView style={styles.entryContainer}>
+            <Text style={styles.entry}>Daily Tasks</Text>
+            <Fontisto name='plus-a' size={30} color="black" style={styles.plusSign}/>
+          </SafeAreaView>
+
           <FlatList data={tasks} renderItem={renderItem} keyExtractor={(item) => item.key}></FlatList>
         </SafeAreaView>
       </SafeAreaView>
@@ -75,8 +81,11 @@ export default function Upcoming() {
     tasksContainer: {
       marginLeft: 20,
     },
+    entryContainer: {
+      flexDirection: 'row',
+      marginTop: 25
+    },
     entry : {
-      marginTop: 25,
       color: 'black', 
       fontWeight: 'bold',
       fontSize: 40,
@@ -108,6 +117,11 @@ export default function Upcoming() {
     },
     checkedText: {
       textDecorationLine: 'line-through',
+      textDecorationStyle: 'solid',
       color: 'gray',
     },
+    plusSign: {
+      marginLeft: 70,
+      marginTop: 9,
+    }
   });
