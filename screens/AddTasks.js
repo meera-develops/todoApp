@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 export default function AddTasks({ navigation, route }) {
 
-    const { setTasks } = route.params;
+    const { tasks, setTasks } = route.params;
 
     let [todo, setTodo] = useState('');
 

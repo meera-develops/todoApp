@@ -7,11 +7,6 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 
 export default function Upcoming() {
 
-    let navigation = useNavigation();
-    let addTask = () => {
-      navigation.navigate('Add Tasks', {setTasks});
-    }
-
     let data = [
       {
         key: "1",
@@ -36,6 +31,11 @@ export default function Upcoming() {
     ]
 
     const [tasks, setTasks ] = useState(data);
+
+    let navigation = useNavigation();
+    let addTask = () => {
+      navigation.navigate('Add Tasks', { tasks, setTasks });
+    }
 
     let toggleCheckbox = (key) => {
       const updatedTasks = tasks.map(task => 
@@ -68,6 +68,7 @@ export default function Upcoming() {
           <SafeAreaView style={styles.entryContainer}>
             <Text style={styles.entry}>Daily Tasks</Text>
             <Fontisto name='plus-a' size={30} color="black" style={styles.plusSign} onPress={addTask}/>
+            {/* add a label to this button */}
           </SafeAreaView>
 
           <FlatList data={tasks} renderItem={renderItem} keyExtractor={(item) => item.key}></FlatList>
