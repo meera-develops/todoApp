@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import Tasks from './screens/Tasks';
+import Completed from './screens/Completed';
 import Upcoming from './screens/Upcoming';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,7 +13,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator 
-      initialRouteName='Add Tasks'
+      initialRouteName='Upcoming Tasks'
       screenOptions={{
         tabBarActiveTintColor: '#000000',
         tabBarStyle: {
@@ -22,14 +22,20 @@ export default function App() {
         tabBarLabelStyle: {
           color: 'white',
           fontSize: 14
-        }
+        },
+        tabBarLabelStyle: {
+          marginTop: 12, // Increase this value to move the text lower
+        },
+        tabBarIconStyle: {
+          marginBottom: -1, // Increase this value to move the icon up
+        },
       }}>
         <Tab.Screen 
         name='Add Tasks' 
         component={AddTasks}
         options={{
           tabBarIcon: ({ focused }) => (
-            <Ionicons name="home" size={24} color={focused ? 'black' : 'white'} />
+            <Fontisto name="plus-a" size={24} color={focused ? 'black' : 'white'} />
           ),
         }} />
         <Tab.Screen name='Upcoming Tasks' component={Upcoming}
@@ -40,7 +46,7 @@ export default function App() {
         }}>
 
         </Tab.Screen>
-        <Tab.Screen name='Completed Tasks' component={Tasks}
+        <Tab.Screen name='Completed Tasks' component={Completed}
         options={{
           tabBarIcon: ({ focused }) => (
             <Fontisto name="checkbox-active" size={20} color={focused ? 'black' : 'white'} />
