@@ -2,29 +2,32 @@ import { StyleSheet, Text, SafeAreaView, FlatList } from 'react-native';
 import React, { useState } from 'react';
 import { CheckBox } from '@rneui/themed';
 
+//organize tasks to move to the bottom once completed
+//feature option to add tasks
+
 
 export default function Upcoming() {
 
     let data = [
       {
         key: "1",
-        title: "Clean the car",
-        checked: false    
+        description: "Clean the car",
+        completed: false    
       },
       {
         key: "2",
-        title: "Buy groceries for the week",
-        checked: true    
+        description: "Buy groceries for the week",
+        completed: true    
       },
       {
         key: "3",
-        title: "Walk the dog",
-        checked: false     
+        description: "Walk the dog",
+        completed: false     
       },
       {
         key: "4",
-        title: "Clean Room",
-        checked: true
+        description: "Clean Room",
+        completed: true
       },
     ]
 
@@ -32,7 +35,7 @@ export default function Upcoming() {
 
     let toggleCheckbox = (key) => {
       const updatedTasks = tasks.map(task => 
-        task.key === key ? { ...task, checked: !task.checked } : task
+        task.key === key ? { ...task, completed: !task.completed } : task
       );
       setTasks(updatedTasks);  // Update the state with the new tasks array
     };
@@ -41,11 +44,12 @@ export default function Upcoming() {
       return (
         <SafeAreaView style={styles.taskCard}>
           <CheckBox 
-            checked={item.checked}
+            checked={item.completed}
             onPress={() => toggleCheckbox(item.key)}
             containerStyle={styles.checkboxContainer}
+            checkedColor="green"
           />
-          <Text style={[styles.task, item.checked && styles.checkedText]}>{item.title}</Text>
+          <Text style={[styles.task, item.completed && styles.checkedText]}>{item.description}</Text>
         </SafeAreaView>
 
         
