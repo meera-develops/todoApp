@@ -19,6 +19,14 @@ export default function App() {
         tabBarStyle: {
           backgroundColor: '#A8626C',
         },
+        headerStyle: {
+          backgroundColor: '#A8626C', 
+        },
+        headerTintColor: 'white', 
+        headerTitleAlign: 'center', 
+        headerTitleStyle: {
+          fontSize: 20
+        },
         tabBarLabelStyle: {
           color: 'white',
           fontSize: 14
@@ -35,13 +43,13 @@ export default function App() {
         component={AddTasks}
         options={{
           tabBarIcon: ({ focused }) => (
-            <Fontisto name="plus-a" size={24} color={focused ? 'black' : 'white'} />
+            <Fontisto name="plus-a" size={30} color={focused ? 'black' : 'white'} />
           ),
         }} />
         <Tab.Screen name='Upcoming Tasks' component={Upcoming}
         options={{
           tabBarIcon: ({ focused }) => (
-            <Fontisto name="clock" size={20} color={focused ? 'black' : 'white'} />
+            <Fontisto name="clock" size={27} color={focused ? 'black' : 'white'} />
           ),
         }}>
 
@@ -49,7 +57,7 @@ export default function App() {
         <Tab.Screen name='Completed Tasks' component={Completed}
         options={{
           tabBarIcon: ({ focused }) => (
-            <Fontisto name="checkbox-active" size={20} color={focused ? 'black' : 'white'} />
+            <Fontisto name="checkbox-active" size={27} color={focused ? 'black' : 'white'} />
           ),
         }} />
       </Tab.Navigator>

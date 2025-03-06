@@ -1,14 +1,38 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-
+import { StyleSheet, Text, SafeAreaView, FlatList } from 'react-native';
 
 
 export default function Upcoming() {
+
+    let data = [
+      {
+        key: "1",
+        title: "Clean the car"    
+      },
+      {
+        key: "2",
+        title: "Buy groceries for the week"
+      },
+      {
+        key: "3",
+        title: "Walk the dog"
+      },
+      {
+        key: "4",
+        title: "Clean Room"
+      }
+    ]
+    let renderItem = ({item}) => {
+      return <Text style={styles.task}>{item.title}</Text>
+    }
+
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.entry}>NOW YOU SEE THE TASKS</Text>
-        <StatusBar style="auto" /> 
-      </View>
+      <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.tasksContainer}>
+          <Text style={styles.entry}>Daily Tasks</Text>
+          <FlatList data={data} renderItem={renderItem}></FlatList>
+        </SafeAreaView>
+      </SafeAreaView>
     );
   }
   
@@ -16,12 +40,18 @@ export default function Upcoming() {
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+    },
+    tasksContainer: {
+      marginLeft: 20,
     },
     entry : {
-      color: 'red', 
+      marginTop: 25,
+      color: 'black', 
       fontWeight: 'bold',
-      fontSize: 20
+      fontSize: 40
+    },
+    task: {
+      color: 'blue',
+      marginTop: 50,
     },
   });
