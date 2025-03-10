@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 export default function Tasks() {
     return (
       <View style={styles.container}>
-        <Text style={styles.entry}>Now you see completed</Text>
+        <Text style={styles.entry}>In a later update, completed tasks will go here. Not required for the purpose of this assignment</Text>
         <StatusBar style="auto" /> 
       </View>
     );
@@ -19,6 +19,7 @@ export default function Tasks() {
       justifyContent: 'center',
     },
     entry : {
+      marginHorizontal: 20,
       color: 'red', 
       fontWeight: 'bold',
       fontSize: 20

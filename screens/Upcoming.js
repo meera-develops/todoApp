@@ -1,5 +1,4 @@
-import { StyleSheet, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, TextInput, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { CheckBox } from '@rneui/themed';
 import Fontisto from '@expo/vector-icons/Fontisto';
@@ -31,10 +30,20 @@ export default function Upcoming() {
     ]
 
     const [tasks, setTasks ] = useState(data);
+    const [newTask, setNewTask] = useState('');
+    const [addingTask, setAddingTask] = useState(false);
 
-    let navigation = useNavigation();
     let addTask = () => {
-      navigation.navigate('Add Tasks', { tasks, setTasks });
+      if (newTask.trim()) {
+        const newTaskObject = {
+          key: (tasks.length + 1).toString(), // Generate a new key (or you could use a unique id generator)
+          description: newTask,
+          completed: false,
+        };
+        setTasks([...tasks, newTaskObject]);
+        setNewTask(''); // Clear the input field
+        setAddingTask(false); // Close the input field after adding the task
+      }
     }
 
     let toggleCheckbox = (key) => {
@@ -55,8 +64,6 @@ export default function Upcoming() {
           />
           <Text style={[styles.task, item.completed && styles.checkedText]}>{item.description}</Text>
         </SafeAreaView>
-
-        
       );
     }
 
@@ -67,9 +74,23 @@ export default function Upcoming() {
 
           <SafeAreaView style={styles.entryContainer}>
             <Text style={styles.entry}>Daily Tasks</Text>
-            <Fontisto name='plus-a' size={30} color="black" style={styles.plusSign} onPress={addTask}/>
-            {/* add a label to this button */}
+            <Fontisto name='plus-a' size={30} color="black" style={styles.plusSign} onPress={() => setAddingTask(true)}/>
+            <Text style={styles.iconLabel}>Add New Task</Text>
           </SafeAreaView>
+          {addingTask && (
+          <SafeAreaView style={styles.addTaskContainer}>
+            <TextInput
+              style={styles.inputField}
+              placeholder="Enter new task"
+              value={newTask}
+              onChangeText={setNewTask}
+              onSubmitEditing={addTask}
+            />
+            <TouchableOpacity onPress={addTask}>
+              <Text style={styles.addButton}>Add Task</Text>
+            </TouchableOpacity>
+          </SafeAreaView>
+        )}
 
           <FlatList data={tasks} renderItem={renderItem} keyExtractor={(item) => item.key}></FlatList>
         </SafeAreaView>
@@ -125,7 +146,49 @@ export default function Upcoming() {
       color: 'gray',
     },
     plusSign: {
-      marginLeft: 70,
+      marginLeft: 20,
       marginTop: 9,
+      marginRight: 10
+    },
+    taskCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 15,
+    },
+    checkboxContainer: {
+      marginRight: 10,
+    },
+    task: {
+      fontSize: 18,
+    },
+    checkedText: {
+      textDecorationLine: 'line-through',
+      color: 'gray',
+    },
+    addTaskContainer: {
+      marginTop: 15,
+      padding: 10,
+      borderWidth: 1,
+      borderColor: 'black',
+      borderRadius: 10,
+      marginHorizontal: 15
+    },
+    inputField: {
+      height: 40,
+      borderColor: '#ccc',
+      borderWidth: 1,
+      borderRadius: 5,
+      paddingLeft: 10,
+      marginBottom: 10,
+    },
+    addButton: {
+      color: '#007BFF',
+      textAlign: 'center',
+      fontSize: 18,
+    },
+    iconLabel: {
+      marginTop: 18,
+      fontSize: 14,
+      fontWeight: 'bold'
     }
   });

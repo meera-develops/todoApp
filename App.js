@@ -7,6 +7,8 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddTasks from './screens/AddTasks';
 
+//hide the completed screen 
+
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -38,14 +40,14 @@ export default function App() {
           marginBottom: -1, // Increase this value to move the icon up
         },
       }}>
-        <Tab.Screen 
+        {/* <Tab.Screen 
         name='Add Tasks' 
         component={AddTasks}
         options={{
           tabBarIcon: ({ focused }) => (
             <Fontisto name="plus-a" size={30} color={focused ? 'black' : 'white'} />
           ),
-        }} />
+        }} /> */}
         <Tab.Screen name='Upcoming Tasks' component={Upcoming}
         options={{
           tabBarIcon: ({ focused }) => (
