@@ -75,7 +75,7 @@ export default function Upcoming() {
           <SafeAreaView style={styles.entryContainer}>
             <Text style={styles.entry}>Daily Tasks</Text>
             <Fontisto name='plus-a' size={30} color="black" style={styles.plusSign} onPress={() => setAddingTask(true)}/>
-            <Text style={styles.iconLabel}>Add New Task</Text>
+            <Text style={styles.iconLabel} onPress={() => setAddingTask(true)}>Add New Task</Text>
           </SafeAreaView>
           {addingTask && (
           <SafeAreaView style={styles.addTaskContainer}>

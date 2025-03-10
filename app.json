@@ -1,7 +1,13 @@
 {
   "expo": {
+    "experiments": {
+      "baseUrl": "/todoApp"
+    },
     "name": "todo-app",
     "slug": "todo-app",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
