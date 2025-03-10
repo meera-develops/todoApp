@@ -47,7 +47,7 @@ export default function App() {
           tabBarIcon: ({ focused }) => (
             <Fontisto name="plus-a" size={30} color={focused ? 'black' : 'white'} />
           ),
-        }} /> */}
+        }} /> hid this screen to include adding tasks on one screen */}
         <Tab.Screen name='Upcoming Tasks' component={Upcoming}
         options={{
           tabBarIcon: ({ focused }) => (
