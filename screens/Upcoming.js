@@ -6,7 +6,7 @@ import { useTasks } from '../context/TaskContext';
 
 
 export default function Upcoming() {
-    const { tasks, toggleTask, addTask } = useTasks();
+    const { tasks, toggleTask, addTask, deleteTask } = useTasks();
     const [newTask, setNewTask] = useState('');
     const [addingTask, setAddingTask] = useState(false);
     const [recentlyCompleted, setRecentlyCompleted] = useState([]);
@@ -47,7 +47,10 @@ export default function Upcoming() {
             containerStyle={styles.checkboxContainer}
             checkedColor="green"
           />
-          <Text style={[styles.task, item.completed && styles.checkedText]}>{item.description}</Text>
+          <Text style={[styles.task, item.completed && styles.checkedText, styles.taskText]}>{item.description}</Text>
+          <TouchableOpacity onPress={() => deleteTask(item.key)} style={styles.trashButton}>
+            <Fontisto name="trash" size={20} color="#A8626C" />
+          </TouchableOpacity>
         </SafeAreaView>
       );
     }
@@ -162,5 +165,12 @@ export default function Upcoming() {
       marginTop: 18,
       fontSize: 14,
       fontWeight: 'bold'
+    },
+    taskText: {
+      flex: 1,
+    },
+    trashButton: {
+      padding: 10,
+      marginLeft: 'auto',
     }
   });

@@ -45,8 +45,12 @@ export function TaskProvider({ children }) {
     setTasks(prevTasks => [...prevTasks, newTask]);
   };
 
+  const deleteTask = (key) => {
+    setTasks(prevTasks => prevTasks.filter(task => task.key !== key));
+  };
+
   return (
-    <TaskContext.Provider value={{ tasks, setTasks, toggleTask, addTask }}>
+    <TaskContext.Provider value={{ tasks, setTasks, toggleTask, addTask, deleteTask }}>
       {children}
     </TaskContext.Provider>
   );
