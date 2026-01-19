@@ -1,27 +1,85 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, SafeAreaView, FlatList } from 'react-native';
+import React from 'react';
+import { CheckBox } from '@rneui/themed';
+import { useTasks } from '../context/TaskContext';
 
 
-export default function Tasks() {
+export default function Completed() {
+    const { tasks, toggleTask } = useTasks();
+
+    const completedTasks = tasks.filter(task => task.completed);
+
+    let renderItem = ({item}) => {
+      return (
+        <SafeAreaView style={styles.taskCard}>
+          <CheckBox
+            checked={item.completed}
+            onPress={() => toggleTask(item.key)}
+            containerStyle={styles.checkboxContainer}
+            checkedColor="green"
+          />
+          <Text style={styles.task}>{item.description}</Text>
+        </SafeAreaView>
+      );
+    }
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.entry}>In a later update, completed tasks will go here. Not required for the purpose of this assignment</Text>
-        <StatusBar style="auto" /> 
-      </View>
+      <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.tasksContainer}>
+          <Text style={styles.entry}>Completed</Text>
+          {completedTasks.length === 0 ? (
+            <Text style={styles.emptyText}>No completed tasks yet</Text>
+          ) : (
+            <FlatList data={completedTasks} renderItem={renderItem} keyExtractor={(item) => item.key}></FlatList>
+          )}
+        </SafeAreaView>
+      </SafeAreaView>
     );
   }
-  
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
+    },
+    tasksContainer: {
+      marginLeft: 20,
+    },
+    entry: {
+      color: 'black',
+      fontWeight: 'bold',
+      fontSize: 40,
+      marginTop: 25,
+      marginBottom: 25
+    },
+    task: {
+      color: 'black',
       alignItems: 'center',
       justifyContent: 'center',
+      fontSize: 18
     },
-    entry : {
-      marginHorizontal: 20,
-      color: 'red', 
-      fontWeight: 'bold',
-      fontSize: 20
+    taskCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 10,
+      marginVertical: 5,
+      marginBottom: 15,
+      backgroundColor: '#ffffff',
+      borderRadius: 10,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 5,
+      elevation: 3,
     },
+    checkboxContainer: {
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+      marginRight: 10,
+    },
+    emptyText: {
+      fontSize: 16,
+      color: 'gray',
+      marginTop: 20,
+    }
   });

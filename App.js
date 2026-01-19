@@ -2,17 +2,15 @@ import 'react-native-gesture-handler';
 import Completed from './screens/Completed';
 import Upcoming from './screens/Upcoming';
 import { NavigationContainer } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
 import Fontisto from '@expo/vector-icons/Fontisto';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AddTasks from './screens/AddTasks';
-
-//hide the completed screen 
+import { TaskProvider } from './context/TaskContext';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
+    <TaskProvider>
     <NavigationContainer>
       <Tab.Navigator 
       initialRouteName='Upcoming Tasks'
@@ -64,6 +62,7 @@ export default function App() {
         }} />
       </Tab.Navigator>
     </NavigationContainer>
+    </TaskProvider>
   );
 }
 

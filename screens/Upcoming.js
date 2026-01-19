@@ -2,63 +2,48 @@ import { StyleSheet, Text, TextInput, SafeAreaView, FlatList, TouchableOpacity }
 import React, { useState } from 'react';
 import { CheckBox } from '@rneui/themed';
 import Fontisto from '@expo/vector-icons/Fontisto';
+import { useTasks } from '../context/TaskContext';
 
 
 export default function Upcoming() {
-
-    let data = [
-      {
-        key: "1",
-        description: "Clean the car",
-        completed: false    
-      },
-      {
-        key: "2",
-        description: "Buy groceries for the week",
-        completed: true    
-      },
-      {
-        key: "3",
-        description: "Walk the dog",
-        completed: false     
-      },
-      {
-        key: "4",
-        description: "Clean Room",
-        completed: true
-      },
-    ]
-
-    const [tasks, setTasks ] = useState(data);
+    const { tasks, toggleTask, addTask } = useTasks();
     const [newTask, setNewTask] = useState('');
     const [addingTask, setAddingTask] = useState(false);
+    const [recentlyCompleted, setRecentlyCompleted] = useState([]);
 
-    let addTask = () => {
-      if (newTask.trim()) {
-        const newTaskObject = {
-          key: (tasks.length + 1).toString(), // Generate a new key (or you could use a unique id generator)
-          description: newTask,
-          completed: false,
-        };
-        setTasks([...tasks, newTaskObject]);
-        setNewTask(''); // Clear the input field
-        setAddingTask(false); // Close the input field after adding the task
+    // Show incomplete tasks plus recently completed ones (for visual feedback)
+    const upcomingTasks = tasks.filter(task => !task.completed || recentlyCompleted.includes(task.key));
+
+    const handleToggleTask = (key) => {
+      const task = tasks.find(t => t.key === key);
+      if (task && !task.completed) {
+        // Task is being completed - add to recently completed for visual feedback
+        setRecentlyCompleted(prev => [...prev, key]);
+        toggleTask(key);
+        // Remove from recently completed after delay
+        setTimeout(() => {
+          setRecentlyCompleted(prev => prev.filter(k => k !== key));
+        }, 1000);
+      } else {
+        // Task is being uncompleted - just toggle
+        toggleTask(key);
       }
-    }
+    };
 
-    let toggleCheckbox = (key) => {
-      const updatedTasks = tasks.map(task => 
-        task.key === key ? { ...task, completed: !task.completed } : task
-      );
-      setTasks(updatedTasks);
+    let handleAddTask = () => {
+      if (newTask.trim()) {
+        addTask(newTask);
+        setNewTask('');
+        setAddingTask(false);
+      }
     };
 
     let renderItem = ({item}) => {
       return (
         <SafeAreaView style={styles.taskCard}>
-          <CheckBox 
+          <CheckBox
             checked={item.completed}
-            onPress={() => toggleCheckbox(item.key)}
+            onPress={() => handleToggleTask(item.key)}
             containerStyle={styles.checkboxContainer}
             checkedColor="green"
           />
@@ -84,15 +69,15 @@ export default function Upcoming() {
               placeholder="Enter new task"
               value={newTask}
               onChangeText={setNewTask}
-              onSubmitEditing={addTask}
+              onSubmitEditing={handleAddTask}
             />
-            <TouchableOpacity onPress={addTask}>
+            <TouchableOpacity onPress={handleAddTask}>
               <Text style={styles.addButton}>Add Task</Text>
             </TouchableOpacity>
           </SafeAreaView>
         )}
 
-          <FlatList data={tasks} renderItem={renderItem} keyExtractor={(item) => item.key}></FlatList>
+          <FlatList data={upcomingTasks} renderItem={renderItem} keyExtractor={(item) => item.key}></FlatList>
         </SafeAreaView>
       </SafeAreaView>
     );
@@ -120,13 +105,14 @@ export default function Upcoming() {
       color: 'black',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: 20
+      fontSize: 18
     },
     taskCard: {
       flexDirection: 'row',
       alignItems: 'center',
       padding: 10,
       marginVertical: 5,
+      marginBottom: 15,
       backgroundColor: '#ffffff',
       borderRadius: 10,
       shadowColor: '#000',
@@ -150,21 +136,7 @@ export default function Upcoming() {
       marginTop: 9,
       marginRight: 10
     },
-    taskCard: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 15,
-    },
-    checkboxContainer: {
-      marginRight: 10,
-    },
-    task: {
-      fontSize: 18,
-    },
-    checkedText: {
-      textDecorationLine: 'line-through',
-      color: 'gray',
-    },
+    
     addTaskContainer: {
       marginTop: 15,
       padding: 10,
