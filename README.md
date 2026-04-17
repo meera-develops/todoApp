@@ -5,8 +5,8 @@ A mobile-friendly note-taking application that allows users to quickly create, m
 ---
 
 ## 🚀 Live Demo
-- **Live App:** [https://meera-develops.github.io/todoApp/]  
-- **Demo Video:** [https://www.youtube.com/shorts/SGUAIv_gmF4]
+- **Live App:** https://meera-develops.github.io/todoApp/  
+- **Demo Video:** https://www.youtube.com/shorts/SGUAIv_gmF4
 
 ---
 
